@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { Doctor, validateDoctor } from '../config/models/Doctor.js';
+import { Doctor, validateDoctor } from '../models/Doctor.js';
 
 dotenv.config();
 

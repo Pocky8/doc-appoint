@@ -1,6 +1,6 @@
 /* src/pages/HomePage.css */
 .homepage-container {
-  background-image: url('../img/doct.jpg'); /* Update to your local image path */
+  background-image: url('./doct.jpg'); /* Update to your local image path */
   background-size: cover;
   background-position: center;
   height: 100vh;

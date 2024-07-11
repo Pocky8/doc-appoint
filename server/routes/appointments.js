@@ -1,7 +1,7 @@
 // src/routes/appointments.js
-
+import mongoose from "mongoose";
 import express from "express";
-import Appointment from "../config/models/appointment.js";
+import Appointment from "../models/appointment.js";
 
 const router = express.Router();
 

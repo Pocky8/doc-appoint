@@ -3,10 +3,11 @@
   background-image: url('./doct.jpg'); /* Update to your local image path */
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Align items to the left */
   justify-content: center;
   color: #607d8b; /* Bluish gray color */
   text-align: left;
@@ -14,10 +15,24 @@
 }
 
 .homepage-text {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   font-weight: bold;
-  margin-bottom: 20px;
-  color: #607d8b; /* Bluish gray color */
+  margin-bottom: 5px;
+  color: black; 
+  margin-left: 40px;
+}
+
+.home-under {
+  color: black;
+  text-align: left; /* Align the text to the left */
+  margin-left: 40px; /* Ensure margin is consistent */
+}
+
+.featured-doctors {
+  text-align: center;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 40px;
 }
 
 .doctors-carousel {
@@ -31,11 +46,12 @@
 
 .doctor-card {
   display: flex;
+  width: 50vh;
   align-items: center;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: #E3F2FD; /* Soft Blue */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s; /* Add a smooth transition on hover */
 }
@@ -54,4 +70,24 @@
 .doctor-info {
   margin-top: 10px;
   color: #607d8b; /* Bluish gray color */
+}
+
+.appointment-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.appointment-button:hover {
+  background-color: #45a049;
+}
+
+.featured-doctors{
+  color: black;
+  font-size: 1rem;
 }

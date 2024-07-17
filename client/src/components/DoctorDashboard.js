@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './DoctorDashboard.css';
 
 const DoctorDashboard = () => {
   const [appointments, setAppointments] = useState([]);
@@ -18,7 +19,6 @@ const DoctorDashboard = () => {
     const fetchAppointments = async () => {
       const token = localStorage.getItem("token");
       if (!token) {
-        // Handle case where token is not found (e.g., redirect to login)
         console.error('No token found in local storage');
         return;
       }
@@ -27,7 +27,6 @@ const DoctorDashboard = () => {
         const doctorEmail = localStorage.getItem("doctorEmail");
         const docid = localStorage.getItem("docid");
         if (!doctorEmail) {
-          // Handle case where doctorEmail is not found (e.g., redirect to login)
           console.error('No doctorEmail found in local storage');
           return;
         }
@@ -43,7 +42,6 @@ const DoctorDashboard = () => {
             Authorization: `Bearer ${token}`
           }
         });
-        
 
         setAppointments(response.data);
         setDoctorInfo(doctorResponse.data);
@@ -52,7 +50,6 @@ const DoctorDashboard = () => {
       } catch (error) {
         console.error('Error fetching appointments or doctor data:', error);
         setLoading(false);
-        // Handle other errors (e.g., unauthorized access)
       }
     };
 
@@ -97,46 +94,46 @@ const DoctorDashboard = () => {
     return <div>Loading...</div>;
   }
 
-  const doctor = doctorInfo; // Assuming doctor info is fetched correctly
+  const doctor = doctorInfo;
 
   const displayDoctorInfo = (doctor) => (
     <div>
       <h3>Welcome, Dr. {doctor.firstName} {doctor.lastName}</h3>
+      <p className='specialization'>{doctor.specialization}</p>
     </div>
   );
 
   return (
-    <div>
+    <div className="dashboard-container">
       <h2>Doctor Dashboard</h2>
       {doctor && (
         <div>
           {displayDoctorInfo(doctor)}
-          <div>
-            <h4>Appointments</h4>
+          <div className="section">
+            <h4>Upcoming Appointments</h4>
             {appointments.length === 0 ? (
               <p>No appointments available.</p>
             ) : (
               <ul>
-                {appointments.map(appointment => (
+                {appointments.map((appointment, index) => (
                   <li key={appointment._id}>
-                    <div>
-                      <strong>Patient Name:</strong> {appointment.firstName} {appointment.lastName}
-                    </div>
-                    <div>
-                      <strong>Date:</strong> {appointment.date}
-                    </div>
-                    <div>
-                      <strong>Phone Number:</strong> {appointment.phoneNo}
-                    </div>
-                    <div>
-                      <strong>Reason:</strong> {appointment.reason ? appointment.reason : 'Reason not provided'}
+                    <div className="appointment-item">
+                      <div className="appointment-number">
+                        <strong>{index + 1}.</strong>
+                      </div>
+                      <div className="appointment-details">
+                        <div><strong>Patient Name:</strong> {appointment.firstName} {appointment.lastName}</div>
+                        <div><strong>Date:</strong> {appointment.date}</div>
+                        <div><strong>Phone Number:</strong> {appointment.phoneNo}</div>
+                        <div><strong>Reason:</strong> {appointment.reason ? appointment.reason : 'Reason not provided'}</div>
+                      </div>
                     </div>
                   </li>
                 ))}
               </ul>
             )}
           </div>
-          <div>
+          <div className="section">
             <h4>Update Availability</h4>
             <form onSubmit={handleAvailabilitySubmit}>
               <label>

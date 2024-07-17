@@ -3,7 +3,7 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
-import { useState } from "react";
+import React ,{ useState } from "react";
 
 const DoctorLogin = () => {
   const [data, setData] = useState({ email: "", password: "" });

@@ -108,11 +108,11 @@ const AppointmentPage = () => {
   };
 
   return (
-    <div className={styles["appointment-container"]}>
-      <div className={styles["appointment-form-container"]}>
-        <form className={styles["form-container"]} onSubmit={handleSubmit}>
+    <div className="appointment-container">
+      <div className="appointment-form-container">
+        <form className="form-container" onSubmit={handleSubmit}>
           <h1>Book an Appointment</h1>
-          <div className={styles["input-group"]}>
+          <div className="input-group">
             <input
               type="text"
               placeholder="First Name"
@@ -132,7 +132,7 @@ const AppointmentPage = () => {
               className={styles.input}
             />
           </div>
-          <div className={styles["input-group"]}>
+          <div className="input-group">
             <input
               type="email"
               placeholder="Email"
@@ -152,7 +152,7 @@ const AppointmentPage = () => {
               className={styles.input}
             />
           </div>
-          <div className={styles["input-group"]}>
+          <div className="input-group">
             <textarea
               placeholder="Reason for Visit"
               name="reason"
@@ -171,7 +171,7 @@ const AppointmentPage = () => {
               <option value="cash">Cash</option>
             </select>
           </div>
-          <div className={styles["input-group"]}>
+          <div className="input-group">
             <select
               name="doctorEmail"
               onChange={handleChange}
@@ -190,7 +190,7 @@ const AppointmentPage = () => {
             </select>
           </div>
           {selectedDoctor && (
-            <div className={styles["input-group"]}>
+            <div className="input-group">
               <select
                 name="date"
                 onChange={handleChange}
@@ -210,7 +210,7 @@ const AppointmentPage = () => {
             </div>
           )}
           {appointmentData.date && (
-            <div className={styles["input-group"]}>
+            <div className="input-group">
               <select
                 name="timeSlot"
                 onChange={handleChange}
@@ -229,9 +229,9 @@ const AppointmentPage = () => {
               </select>
             </div>
           )}
-          {error && <div className={styles["error-msg"]}>{error}</div>}
-          {success && <div className={styles["success-msg"]}>{success}</div>}
-          <button type="submit" className={styles["green-btn"]}>
+          {error && <div className="error-msg">{error}</div>}
+          {success && <div className="success-msg">{success}</div>}
+          <button type="submit" className="green-btn">
             Book Appointment
           </button>
         </form>

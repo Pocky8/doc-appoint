@@ -1,5 +1,6 @@
 // src/pages/DoctorsPage.js
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './DoctorsPage.css';
 
@@ -7,6 +8,7 @@ function DoctorsPage() {
   const [doctorsData, setDoctorsData] = useState([]);
   const [dateRange, setDateRange] = useState('');
   const [specialist, setSpecialist] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -27,6 +29,10 @@ function DoctorsPage() {
 
   const handleSpecialistChange = (event) => {
     setSpecialist(event.target.value);
+  };
+
+  const handleAppointmentClick = (doctor) => {
+    navigate('/appointments', { state: { doctor } });
   };
 
   return (
@@ -75,7 +81,7 @@ function DoctorsPage() {
               <div className="doctor-details-section">
                 <p className="doctor-details-text">Location: {doctor.address}</p>
                 <p className="doctor-details-text">Phone: {doctor.phoneNumber}</p>
-                <button className="appointment-button">Make an Appointment</button>
+                <button className="appointment-button" onClick={() => handleAppointmentClick(doctor)}>Make an Appointment</button>
               </div>
             </div>
           ))}

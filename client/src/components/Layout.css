@@ -11,7 +11,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: #007bff;
-  padding: 10px 20px;
+  padding: 20px 30px;
 }
 
 .layout-header .logo h1 {
@@ -51,7 +51,3 @@
   background-color: #218838;
 }
 
-.layout-main {
-  flex-grow: 1;
-  padding: 20px;
-}

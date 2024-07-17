@@ -1,4 +1,4 @@
-// src/config/models/Doctor.js
+// src/models/Doctor.js
 import mongoose from 'mongoose';
 import Joi from 'joi';
 
@@ -10,21 +10,33 @@ const doctorSchema = new mongoose.Schema({
   specialization: { type: String, required: true },
   phoneNumber: { type: String, required: true },
   address: { type: String, required: true },
+  consultationFees: { type: Number, required: true },
+  availability: {
+    days: [String],
+    timeslots: [String],
+  },
+  role: { type: String, default: 'doctor' },
 });
 
 const Doctor = mongoose.model('Doctor', doctorSchema);
 
-function validateDoctor(doctor) {
+const validateDoctor = (doctor) => {
   const schema = Joi.object({
-    firstName: Joi.string().min(3).max(30).required(),
-    lastName: Joi.string().min(3).max(30).required(),
-    email: Joi.string().min(5).max(255).required().email(),
-    password: Joi.string().min(5).max(255).required(),
-    specialization: Joi.string().min(3).max(50).required(),
-    phoneNumber: Joi.string().min(10).max(15).required(),
-    address: Joi.string().min(5).max(255).required(),
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+    specialization: Joi.string().required(),
+    phoneNumber: Joi.string().required(),
+    address: Joi.string().required(),
+    consultationFees: Joi.number().required(),
+    availability: Joi.object({
+      days: Joi.array().items(Joi.string()),
+      timeslots: Joi.array().items(Joi.string()),
+    }),
   });
+
   return schema.validate(doctor);
-}
+};
 
 export { Doctor, validateDoctor };

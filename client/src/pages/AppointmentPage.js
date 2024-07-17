@@ -1,4 +1,3 @@
-// src/pages/AppointmentPage.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../styles/appointment.css";
@@ -11,17 +10,23 @@ const AppointmentPage = () => {
     email: "",
     phoneNo: "",
     reason: "",
+    date: "",
+    timeSlot: "",
     paymentType: "cash",
-    doctorId: ""
+    doctorEmail: ""
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [availableDates, setAvailableDates] = useState([]);
+  const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
 
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
         const { data } = await axios.get("http://localhost:8080/api/doctors");
         setDoctors(data);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching doctors:", error);
       }
@@ -31,7 +36,30 @@ const AppointmentPage = () => {
   }, []);
 
   const handleChange = ({ currentTarget: input }) => {
-    setAppointmentData({ ...appointmentData, [input.name]: input.value });
+    const newValue = input.value;
+
+    if (input.name === "doctorEmail") {
+      const doctor = doctors.find(doc => doc._id === newValue);
+      setSelectedDoctor(doctor);
+      setAvailableDates(getAvailableDates(doctor));
+      setAvailableTimeSlots([]);
+      setAppointmentData(prevData => ({
+        ...prevData,
+        doctorEmail: newValue,
+        date: "",
+        timeSlot: ""
+      }));
+    } else if (input.name === "date") {
+      setAvailableTimeSlots(getAvailableTimeSlots(newValue));
+      setAppointmentData(prevData => ({
+        ...prevData,
+        date: newValue,
+        timeSlot: ""
+      }));
+    } else {
+      setAppointmentData({ ...appointmentData, [input.name]: newValue });
+    }
+    console.log(appointmentData);
   };
 
   const handleSubmit = async (e) => {
@@ -42,14 +70,41 @@ const AppointmentPage = () => {
       setSuccess("Appointment booked successfully!");
       console.log(res.message);
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
+      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
         setError(error.response.data.message);
       }
     }
+  };
+
+  const getAvailableDates = (doctor) => {
+    if (!doctor) return [];
+    const today = new Date();
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const availableDates = [];
+
+    for (let i = 0; i < 30; i++) { // Check the next 30 days
+      const date = new Date();
+      date.setDate(today.getDate() + i);
+      const dayName = daysOfWeek[date.getDay()];
+
+      if (doctor.availability.days.includes(dayName)) {
+        availableDates.push(date.toISOString().split('T')[0]);
+      }
+    }
+
+    return availableDates;
+  };
+
+  const getAvailableTimeSlots = (selectedDate) => {
+    if (!selectedDoctor) return [];
+    const selectedDay = new Date(selectedDate).getDay();
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const dayName = daysOfWeek[selectedDay];
+
+    if (selectedDoctor.availability.days.includes(dayName)) {
+      return selectedDoctor.availability.timeslots;
+    }
+    return [];
   };
 
   return (
@@ -118,9 +173,9 @@ const AppointmentPage = () => {
           </div>
           <div className={styles["input-group"]}>
             <select
-              name="doctorId"
+              name="doctorEmail"
               onChange={handleChange}
-              value={appointmentData.doctorId}
+              value={appointmentData.doctorEmail}
               required
               className={styles.select}
             >
@@ -134,6 +189,46 @@ const AppointmentPage = () => {
               ))}
             </select>
           </div>
+          {selectedDoctor && (
+            <div className={styles["input-group"]}>
+              <select
+                name="date"
+                onChange={handleChange}
+                value={appointmentData.date}
+                required
+                className={styles.select}
+              >
+                <option value="" disabled>
+                  Select a Date
+                </option>
+                {availableDates.map(date => (
+                  <option key={date} value={date}>
+                    {date}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          {appointmentData.date && (
+            <div className={styles["input-group"]}>
+              <select
+                name="timeSlot"
+                onChange={handleChange}
+                value={appointmentData.timeSlot}
+                required
+                className={styles.select}
+              >
+                <option value="" disabled>
+                  Select a Time Slot
+                </option>
+                {availableTimeSlots.map((slot, index) => (
+                  <option key={index} value={slot}>
+                    {slot}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
           {error && <div className={styles["error-msg"]}>{error}</div>}
           {success && <div className={styles["success-msg"]}>{success}</div>}
           <button type="submit" className={styles["green-btn"]}>

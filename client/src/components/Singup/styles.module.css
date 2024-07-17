@@ -9,7 +9,7 @@
 
 .signup_form_container {
 	width: 900px;
-	height: 500px;
+	height: fit-content;
 	display: flex;
 	border-radius: 10px;
 	box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
@@ -96,3 +96,51 @@
 	color: white;
 	margin: 10px;
 }
+
+.toggle_btn {
+	margin-top: 10px;
+	padding: 10px 20px;
+	background-color: #ffffff;
+	color: #000000;
+	border: 2px solid #4caf50;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 5px;
+  }
+  
+  .toggle_btn:hover {
+	background-color: #4caf50;
+	color: #ffffff;
+  }
+
+  .consultationFees {
+	display: block;
+	margin-bottom: 10px;
+  }
+  
+  .availability {
+	display: block;
+  }
+  
+  .availability h4 {
+	margin-bottom: 5px;
+  }
+  
+  .availability ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+  }
+  
+  .availability li {
+	display: flex;
+	align-items: center;
+	margin-bottom: 5px;
+  }
+  
+  .availability input[type="text"] {
+	flex: 1;
+	margin-right: 10px;
+  }
+  

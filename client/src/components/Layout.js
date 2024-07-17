@@ -1,9 +1,12 @@
 // src/components/Layout.js
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 import './Layout.css';
 
 function Layout({ children }) {
+  const { isAuthenticated, role, logout } = useContext(AuthContext);
+
   return (
     <div className="layout-container">
       <header className="layout-header">
@@ -16,8 +19,17 @@ function Layout({ children }) {
             <li><Link to="/doctors">Doctors</Link></li>
             <li><Link to="/contact">Contact Us</Link></li>
             <li><Link to="/appointments" className="appointment-button">Make an Appointment</Link></li>
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/signup">Sign Up</Link></li>
+            {isAuthenticated ? (
+              <>
+                {role === 'doctor' && <li><Link to="/dashboard">Dashboard</Link></li>}
+                <li><Link to="/" onClick={logout}>Logout</Link></li>
+              </>
+            ) : (
+              <>
+                <li><Link to="/login">Login</Link></li>
+                <li><Link to="/signup">Sign Up</Link></li>
+              </>
+            )}
           </ul>
         </nav>
       </header>

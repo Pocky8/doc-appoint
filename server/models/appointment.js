@@ -1,48 +1,51 @@
 // src/models/appointment.js
-
 import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   lastName: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   email: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   phoneNo: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   reason: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   paymentType: {
     type: String,
     required: true,
     enum: ["cash"],
-    default: "cash"
+    default: "cash",
   },
-  doctorId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Doctor",
-    required: true
+  doctorEmail: {
+    type: String,
+    required: true,
+    trim: true,
   },
   date: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
+  timeSlot: {
+    type: String,
+    required: true,
+  },
 });
 
 const Appointment = mongoose.model("Appointment", appointmentSchema);

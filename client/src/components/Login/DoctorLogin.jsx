@@ -1,7 +1,9 @@
-import { useState } from "react";
+// src/components/DoctorLogin.js
+
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
+import { useState } from "react";
 
 const DoctorLogin = () => {
   const [data, setData] = useState({ email: "", password: "" });
@@ -16,14 +18,13 @@ const DoctorLogin = () => {
     try {
       const url = "http://localhost:8080/api/doctors/login";
       const { data: res } = await axios.post(url, data);
-      localStorage.setItem("token", res.data);
-      window.location = "/";
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("doctorEmail", res.email); // Save the doctor's email to localStorage
+      localStorage.setItem("docid", res._id);
+      localStorage.setItem("role", res.role); // Save the role to localStorage
+      window.location = "/dashboard";
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
+      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
         setError(error.response.data.message);
       }
     }

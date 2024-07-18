@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const createUser = async (userData) => {
   try {
-    const response = await axios.post('http://localhost:8080/api/users', userData);
+    const response = await axios.post('https://doc-appoint-server.onrender.com/api/users', userData);
     console.log('User created successfully:', response.data);
   } catch (error) {
     console.error('Error creating user:', error.response.data);

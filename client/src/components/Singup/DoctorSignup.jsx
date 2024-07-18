@@ -27,7 +27,7 @@ const DoctorSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/doctors/register', formData);
+      const response = await axios.post('https://doc-appoint-server.onrender.com/api/doctors/register', formData);
       console.log('Doctor registration successful:', response.data);
       navigate('/doctorlogin');
     } catch (error) {

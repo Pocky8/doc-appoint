@@ -24,7 +24,7 @@ const AppointmentPage = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const { data } = await axios.get("http://localhost:8080/api/doctors");
+        const { data } = await axios.get("https://doc-appoint-server.onrender.com/api/doctors");
         setDoctors(data);
         console.log(data);
       } catch (error) {
@@ -65,7 +65,7 @@ const AppointmentPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:8080/api/appointments";
+      const url = "https://doc-appoint-server.onrender.com/api/appointments";
       const { data: res } = await axios.post(url, appointmentData);
       setSuccess("Appointment booked successfully!");
       console.log(res.message);

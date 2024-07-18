@@ -31,13 +31,13 @@ const DoctorDashboard = () => {
           return;
         }
 
-        const response = await axios.get(`http://localhost:8080/api/appointments/bydoctor?docid=${docid}`, {
+        const response = await axios.get(`https://doc-appoint-server.onrender.com/api/appointments/bydoctor?docid=${docid}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
 
-        const doctorResponse = await axios.get(`http://localhost:8080/api/doctors/${docid}`, {
+        const doctorResponse = await axios.get(`https://doc-appoint-server.onrender.com/api/doctors/${docid}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -75,7 +75,7 @@ const DoctorDashboard = () => {
         timeslots: newAvailability.timeslots.split(',').map(slot => slot.trim())
       };
 
-      await axios.put(`http://localhost:8080/api/doctors/${docid}/availability`, updatedAvailability, {
+      await axios.put(`https://doc-appoint-server.onrender.com/api/doctors/${docid}/availability`, updatedAvailability, {
         headers: {
           Authorization: `Bearer ${token}`
         }

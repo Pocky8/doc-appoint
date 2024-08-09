@@ -35,6 +35,13 @@ function DoctorsPage() {
     navigate('/appointments', { state: { doctor } });
   };
 
+  const handleDoctorClick = (doctorId) => {
+    localStorage.setItem('doctorId', doctorId);
+    navigate('/DoctorDetailPage/');
+    console.log('Doctor clicked:', doctorId);
+  };
+  
+
   return (
     <div className="doctors-page-container">
       <aside className="doctors-filter-section">
@@ -72,7 +79,7 @@ function DoctorsPage() {
             specialist ? doctor.specialization === specialist : true
           )
           .map((doctor) => (
-            <div key={doctor._id} className="doctor-card-container">
+            <div key={doctor._id} className="doctor-card-container"onClick={() => handleDoctorClick(doctor._id)}>
               <img src={doctor.photo || 'https://via.placeholder.com/100'} alt={doctor.name} className="doctor-photo-img" />
               <div className="doctor-info-section">
                 <h3 className="doctor-info-title">{doctor.firstName} {doctor.lastName}</h3>

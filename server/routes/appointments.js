@@ -41,4 +41,25 @@ router.get("/bydoctor", async (req, res) => {
   }
 });
 
+// route which the user will use to get his upcoing and current appointments
+router.get("/byuser", async (req, res) => {
+  console.log(req.query);
+  const user_id = req.query.userid;
+
+  try {
+    const appointments = await Appointment.find({ userId: user_id });
+    let appointmentsWithDoctorDetails = await Promise.all(
+      appointments.map(async (appointment) => {
+        const doctor = await Doctor.findById(appointment.doctorEmail);
+        return { ...appointment._doc, doctor };
+      })
+    );
+    res.status(200).send(appointmentsWithDoctorDetails);
+
+
+  } catch (error) {
+    res.status(400).send({ message: "Error fetching appointments", error });
+  }
+});
+
 export default router;

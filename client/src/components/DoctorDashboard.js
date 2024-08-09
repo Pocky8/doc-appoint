@@ -5,13 +5,16 @@ import './DoctorDashboard.css';
 const DoctorDashboard = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [ patientsInLine, setPatientsInLine ] = useState(null); // State for patients in line
   const [availability, setAvailability] = useState({
     days: [],
-    timeslots: []
+    timeslots: [],
+    patientsInLine: 0
   });
   const [newAvailability, setNewAvailability] = useState({
     days: [],
-    timeslots: ""
+    timeslots: "",
+    patientsInLine: 0
   });
   const [doctorInfo, setDoctorInfo] = useState(null);
 
@@ -24,10 +27,9 @@ const DoctorDashboard = () => {
       }
 
       try {
-        const doctorEmail = localStorage.getItem("doctorEmail");
         const docid = localStorage.getItem("docid");
-        if (!doctorEmail) {
-          console.error('No doctorEmail found in local storage');
+        if (!docid) {
+          console.error('No docid found in local storage');
           return;
         }
 
@@ -43,9 +45,19 @@ const DoctorDashboard = () => {
           }
         });
 
+        const patientsInLine = await axios.get(`https://doc-appoint-server.onrender.com/api/doctors/${docid}/patients`, 
+          {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+
+        setPatientsInLine(patientsInLine.data); // Set patients in line data
         setAppointments(response.data);
         setDoctorInfo(doctorResponse.data);
         setAvailability(doctorResponse.data.availability);
+        setNewAvailability(prevState => ({ ...prevState, patientsInLine: doctorResponse.data.availability.patientsInLine }));
         setLoading(false);
       } catch (error) {
         console.error('Error fetching appointments or doctor data:', error);
@@ -72,7 +84,8 @@ const DoctorDashboard = () => {
     try {
       const updatedAvailability = {
         days: newAvailability.days.split(',').map(day => day.trim()),
-        timeslots: newAvailability.timeslots.split(',').map(slot => slot.trim())
+        timeslots: newAvailability.timeslots.split(',').map(slot => slot.trim()),
+        patientsInLine: parseInt(newAvailability.patientsInLine, 10)
       };
 
       await axios.put(`https://doc-appoint-server.onrender.com/api/doctors/${docid}/availability`, updatedAvailability, {
@@ -82,7 +95,7 @@ const DoctorDashboard = () => {
       });
 
       setAvailability(updatedAvailability);
-      setNewAvailability({ days: "", timeslots: "" });
+      setNewAvailability({ days: "", timeslots: "", patientsInLine: 0 });
 
       alert('Availability updated successfully!');
     } catch (error) {
@@ -103,6 +116,12 @@ const DoctorDashboard = () => {
     </div>
   );
 
+  // my date is l9ike  2024-07-29T00:00:00.000Z convert to 29-07-2024
+  const convertDate = (date) => {
+    const dateObj = new Date(date);
+    return dateObj.toLocaleDateString();
+  };
+
   return (
     <div className="dashboard-container">
       <h2>Doctor Dashboard</h2>
@@ -110,7 +129,7 @@ const DoctorDashboard = () => {
         <div>
           {displayDoctorInfo(doctor)}
           <div className="section">
-            <h4>Upcoming Appointments</h4>
+            <h4>Appointments</h4>
             {appointments.length === 0 ? (
               <p>No appointments available.</p>
             ) : (
@@ -123,7 +142,7 @@ const DoctorDashboard = () => {
                       </div>
                       <div className="appointment-details">
                         <div><strong>Patient Name:</strong> {appointment.firstName} {appointment.lastName}</div>
-                        <div><strong>Date:</strong> {appointment.date}</div>
+                        <div><strong>Date:</strong> {convertDate(appointment.date)}</div>
                         <div><strong>Phone Number:</strong> {appointment.phoneNo}</div>
                         <div><strong>Reason:</strong> {appointment.reason ? appointment.reason : 'Reason not provided'}</div>
                       </div>
@@ -158,17 +177,37 @@ const DoctorDashboard = () => {
                 />
               </label>
               <br />
+              <label>
+                Number of Patients in Line:
+                <input
+                  type="number"
+                  name="patientsInLine"
+                  value={newAvailability.patientsInLine}
+                  onChange={handleAvailabilityChange}
+                  required
+                />
+              </label>
+              <br />
               <button type="submit">Update Availability</button>
             </form>
             <div>
               <h5>Current Availability</h5>
               <p>Days: {availability.days.join(", ")}</p>
               <p>Timeslots: {availability.timeslots.join(", ")}</p>
+              <p>Number of Patients in Line: {availability.patientsInLine}</p>
             </div>
+          </div>
+          <div>
+            <label>
+              Prescription update
+            </label>
+
           </div>
         </div>
       )}
     </div>
+
+
   );
 };
 

@@ -27,6 +27,7 @@ router.post('/signup', async (req, res) => {
       address: req.body.address,
       consultationFees: req.body.consultationFees,
       availability: req.body.availability,
+      patientsInLine: req.body.patients,
       role: 'doctor' // Set the role to doctor
     });
 
@@ -81,15 +82,31 @@ router.get('/:id', async (req, res) => {
 router.put('/:id/availability', async (req, res) => {
   try {
     const doctorId = req.params.id;
-    console.log('doctorId:', doctorId);
-    const { days, timeslots } = req.body;
+    const { days, timeslots, patientsInLine } = req.body;
 
     const updatedDoctor = await Doctor.findByIdAndUpdate(
       doctorId,
-      { availability: { days, timeslots } },
+      { availability: { days, timeslots }, patientsInLine: patientsInLine },
       { new: true }
     );
     
+    if (!updatedDoctor) {
+      return res.status(404).send({ message: "Doctor not found" });
+    }
+
+    res.send(updatedDoctor);
+  } catch (error) {
+    res.status(500).send({ message: "Server error" });
+  }
+});
+
+router.get('/:id/patients', async (req, res) => {
+  try {
+    const doctorId = req.params.id;
+    const { patientsInLine } = req.body;
+
+    const updatedDoctor = await Doctor.findByIdAndUpdate( doctorId, { patientsInLine }, { new: true });
+
     if (!updatedDoctor) {
       return res.status(404).send({ message: "Doctor not found" });
     }

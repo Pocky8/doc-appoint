@@ -21,7 +21,7 @@ router.post("/signup", async (req, res) => {
     user = new User({
       ...req.body,
       password: hashPassword,
-      role: req.body.role || 'user', // Set role to user by default or use provided role
+      role: req.body.role || 'patient', // Set role to user by default or use provided role
     });
 
     await user.save();

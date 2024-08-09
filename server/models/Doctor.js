@@ -15,6 +15,7 @@ const doctorSchema = new mongoose.Schema({
     days: [String],
     timeslots: [String],
   },
+  patientsInLine: { type: Number, default: 0 },
   role: { type: String, default: 'doctor' },
 });
 
@@ -33,6 +34,8 @@ const validateDoctor = (doctor) => {
     availability: Joi.object({
       days: Joi.array().items(Joi.string()),
       timeslots: Joi.array().items(Joi.string()),
+    patientsInLine: Joi.number(),
+    
     }),
   });
 

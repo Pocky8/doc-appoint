@@ -1,4 +1,5 @@
 /* src/pages/HomePage.css */
+
 .homepage-container {
   background-image: url('./doct.jpg'); /* Update to your local image path */
   background-size: cover;
@@ -19,12 +20,28 @@
   margin-bottom: 5px;
   color: black; 
   margin-left: 40px;
+  opacity: 0; /* Start invisible */
+  transform: translateY(20px); /* Move down for effect */
+  transition: opacity 1.2s ease, transform 1.2s ease; /* Increase duration to 1.2s */
+}
+
+.homepage-text.fade-in {
+  opacity: 1; /* Fade in */
+  transform: translateY(0); /* Move back to original position */
 }
 
 .home-under {
   color: black;
   text-align: left; /* Align the text to the left */
   margin-left: 40px; /* Ensure margin is consistent */
+  opacity: 0; /* Start invisible */
+  transform: translateY(20px); /* Move down for effect */
+  transition: opacity 1.2s ease, transform 1.2s ease; /* Increase duration to 1.2s */
+}
+
+.home-under.fade-in {
+  opacity: 1; /* Fade in */
+  transform: translateY(0); /* Move back to original position */
 }
 
 .featured-doctors {
@@ -32,6 +49,14 @@
   width: 100%;
   margin-top: 50px;
   margin-bottom: 40px;
+  opacity: 0; /* Start invisible */
+  transform: translateY(20px); /* Move down for effect */
+  transition: opacity 1.2s ease, transform 1.2s ease; /* Increase duration to 1.2s */
+}
+
+.featured-doctors.fade-in {
+  opacity: 1; /* Fade in */
+  transform: translateY(0); /* Move back to original position */
 }
 
 .doctors-carousel {
@@ -53,6 +78,14 @@
   background-color: #E3F2FD; /* Soft Blue */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s; /* Add a smooth transition on hover */
+  opacity: 0; /* Start invisible */
+  transform: translateY(20px); /* Move down for effect */
+  transition: opacity 1.2s ease 0.2s, transform 1.2s ease; /* Increased duration and added delay */
+}
+
+.doctor-card.fade-in {
+  opacity: 1; /* Fade in */
+  transform: translateY(0); /* Move back to original position */
 }
 
 .doctor-card:hover {
@@ -86,7 +119,7 @@
   background-color: #45a049;
 }
 
-.featured-doctors{
+.featured-doctors {
   color: black;
   font-size: 1rem;
 }

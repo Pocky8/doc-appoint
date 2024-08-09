@@ -60,10 +60,15 @@ const AppointmentPage = () => {
       setAppointmentData({ ...appointmentData, [input.name]: newValue });
     }
     console.log(appointmentData);
+
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // // add the user_id to the appointment data
+    const user_id = localStorage.getItem("user_id");
+    setAppointmentData({ ...appointmentData, userId: user_id });
+    console.log(appointmentData);
     try {
       const url = "https://doc-appoint-server.onrender.com/api/appointments";
       const { data: res } = await axios.post(url, appointmentData);
@@ -79,7 +84,7 @@ const AppointmentPage = () => {
   const getAvailableDates = (doctor) => {
     if (!doctor) return [];
     const today = new Date();
-    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
     const availableDates = [];
 
     for (let i = 0; i < 30; i++) { // Check the next 30 days

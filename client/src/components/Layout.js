@@ -6,6 +6,7 @@ import './Layout.css';
 
 function Layout({ children }) {
   const { isAuthenticated, role, logout } = useContext(AuthContext);
+  console.log('role:', role);
 
   return (
     <div className="layout-container">
@@ -18,6 +19,8 @@ function Layout({ children }) {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/doctors">Doctors</Link></li>
             <li><Link to="/contact">Contact Us</Link></li>
+            {/* check if my role is patient if yes sho , my appointment */}
+            {role === 'patient' && <li><Link to="/my_appointments">My Appointments</Link></li>}
             <li><Link to="/appointments" className="appointment-button">Make an Appointment</Link></li>
             {isAuthenticated ? (
               <>

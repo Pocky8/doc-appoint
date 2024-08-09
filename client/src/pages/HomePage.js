@@ -16,7 +16,7 @@ function HomePage() {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await axios.get('https://doc-appoint-server.onrender.com /api/doctors');
+        const response = await axios.get('https://doc-appoint-server.onrender.com/api/doctors');
         setDoctorsData(response.data.slice(0, 3)); // Fetch and display only the first 3 doctors
       } catch (error) {
         console.error('Error fetching doctors:', error);

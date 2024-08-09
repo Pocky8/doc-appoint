@@ -15,11 +15,11 @@ const DoctorDetailPage = () => {
         const doctorId = localStorage.getItem("doctorId");
         console.log('Doctor ID:', doctorId);
 
-        const doctorResponse = await axios.get(`https://doc-appoint-server.onrender.com/api/doctors/${doctorId}`);
+        const doctorResponse = await axios.get(`https://doc-appoint-server.onrender.com /api/doctors/${doctorId}`);
         setDoctor(doctorResponse.data);
 
 
-        const patientsInLine = await axios.get(`https://doc-appoint-server.onrender.com/api/doctors/${doctorId}/patients`);
+        const patientsInLine = await axios.get(`https://doc-appoint-server.onrender.com /api/doctors/${doctorId}/patients`);
         console.log('Patients in line:', patientsInLine.data.patientsInLine);
         setPatientsInLine(patientsInLine.data.patientsInLine); // Set patients in line data
 

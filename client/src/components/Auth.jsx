@@ -30,8 +30,8 @@ const Auth = () => {
     e.preventDefault();
     try {
       const url = isDoctor
-        ? "https://doc-appoint-server.onrender.com/api/doctors/login"
-        : "https://doc-appoint-server.onrender.com/api/users/login";
+        ? "https://doc-appoint-server.onrender.com /api/doctors/login"
+        : "https://doc-appoint-server.onrender.com /api/users/login";
       const { data: res } = await axios.post(url, loginData);
       navigate("/home");
       console.log(res.message);
@@ -46,8 +46,8 @@ const Auth = () => {
     e.preventDefault();
     try {
       const url = isDoctor
-        ? "https://doc-appoint-server.onrender.com/api/doctors/signup"
-        : "https://doc-appoint-server.onrender.com/api/users/signup";
+        ? "https://doc-appoint-server.onrender.com /api/doctors/signup"
+        : "https://doc-appoint-server.onrender.com /api/users/signup";
       const payload = isDoctor
         ? signUpData
         : {

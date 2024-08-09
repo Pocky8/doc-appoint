@@ -16,7 +16,7 @@ const DoctorLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "https://doc-appoint-server.onrender.com/api/doctors/login";
+      const url = "https://doc-appoint-server.onrender.com /api/doctors/login";
       const { data: res } = await axios.post(url, data);
       localStorage.setItem("token", res.token);
       localStorage.setItem("doctorEmail", res.email); // Save the doctor's email to localStorage

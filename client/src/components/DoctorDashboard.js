@@ -5,7 +5,7 @@ import './DoctorDashboard.css';
 const DoctorDashboard = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [ patientsInLine, setPatientsInLine ] = useState(null); // State for patients in line
+  const [patientsInLine, setPatientsInLine] = useState(null); // State for patients in line
   const [availability, setAvailability] = useState({
     days: [],
     timeslots: [],
@@ -45,13 +45,11 @@ const DoctorDashboard = () => {
           }
         });
 
-        const patientsInLine = await axios.get(`https://doc-appoint-server.onrender.com/api/doctors/${docid}/patients`, 
-          {
+        const patientsInLine = await axios.get(`https://doc-appoint-server.onrender.com/api/doctors/${docid}/patients`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
-
 
         setPatientsInLine(patientsInLine.data); // Set patients in line data
         setAppointments(response.data);
@@ -116,11 +114,17 @@ const DoctorDashboard = () => {
     </div>
   );
 
-  // my date is l9ike  2024-07-29T00:00:00.000Z convert to 29-07-2024
   const convertDate = (date) => {
     const dateObj = new Date(date);
     return dateObj.toLocaleDateString();
   };
+
+  // Filter out appointments with a past date
+  const upcomingAppointments = appointments.filter(appointment => {
+    const appointmentDate = new Date(appointment.date);
+    const currentDate = new Date();
+    return appointmentDate >= currentDate;
+  });
 
   return (
     <div className="dashboard-container">
@@ -130,11 +134,11 @@ const DoctorDashboard = () => {
           {displayDoctorInfo(doctor)}
           <div className="section">
             <h4>Appointments</h4>
-            {appointments.length === 0 ? (
-              <p>No appointments available.</p>
+            {upcomingAppointments.length === 0 ? (
+              <p>No upcoming appointments available.</p>
             ) : (
               <ul>
-                {appointments.map((appointment, index) => (
+                {upcomingAppointments.map((appointment, index) => (
                   <li key={appointment._id}>
                     <div className="appointment-item">
                       <div className="appointment-number">
@@ -206,8 +210,6 @@ const DoctorDashboard = () => {
         </div>
       )}
     </div>
-
-
   );
 };
 

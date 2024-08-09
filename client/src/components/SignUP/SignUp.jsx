@@ -32,8 +32,8 @@ const SignUp = () => {
     e.preventDefault();
     try {
       const url = isDoctor
-        ? "https://doc-appoint-server.onrender.com /api/doctors/signup"
-        : "https://doc-appoint-server.onrender.com /api/users";
+        ? "https://doc-appoint-server.onrender.com/api/doctors/signup"
+        : "https://doc-appoint-server.onrender.com/api/users";
       const payload = isDoctor ? { ...data, ...doctorData } : data;
       const { data: res } = await axios.post(url, payload);
       navigate("/login");

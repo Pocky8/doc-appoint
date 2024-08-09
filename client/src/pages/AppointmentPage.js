@@ -24,7 +24,7 @@ const AppointmentPage = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const { data } = await axios.get("https://doc-appoint-server.onrender.com /api/doctors");
+        const { data } = await axios.get("https://doc-appoint-server.onrender.com/api/doctors");
         setDoctors(data);
         console.log(data);
       } catch (error) {
@@ -70,7 +70,7 @@ const AppointmentPage = () => {
     setAppointmentData({ ...appointmentData, userId: user_id });
     console.log(appointmentData);
     try {
-      const url = "https://doc-appoint-server.onrender.com /api/appointments";
+      const url = "https://doc-appoint-server.onrender.com/api/appointments";
       const { data: res } = await axios.post(url, appointmentData);
       setSuccess("Appointment booked successfully!");
       console.log(res.message);

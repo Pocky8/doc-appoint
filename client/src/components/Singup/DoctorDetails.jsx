@@ -35,7 +35,7 @@ const DoctorDetails = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "https://doc-appoint-server.onrender.com /api/doctors/details";
+      const url = "https://doc-appoint-server.onrender.com/api/doctors/details";
       const { data: res } = await axios.post(url, doctorData);
       navigate("/login");
       console.log(res.message);

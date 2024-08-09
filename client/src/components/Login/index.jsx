@@ -16,7 +16,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "https://doc-appoint-server.onrender.com /api/auth";
+      const url = "https://doc-appoint-server.onrender.com/api/auth";
       const { data: res } = await axios.post(url, data);
       localStorage.setItem("token", res.data);
       localStorage.setItem("role", res.role); // Save the role to localStorage

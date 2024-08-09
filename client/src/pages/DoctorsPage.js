@@ -13,7 +13,7 @@ function DoctorsPage() {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await axios.get('https://doc-appoint-server.onrender.com /api/doctors');
+        const response = await axios.get('https://doc-appoint-server.onrender.com/api/doctors');
         setDoctorsData(response.data);
       } catch (error) {
         console.error('Error fetching doctors:', error);

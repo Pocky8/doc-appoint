@@ -17,7 +17,7 @@ const PatientDashboard = () => {
       }
 
       try {
-        const response = await axios.get(`https://doc-appoint-server.onrender.com /api/appointments/byuser?userid=${patientid}`);
+        const response = await axios.get(`https://doc-appoint-server.onrender.com/api/appointments/byuser?userid=${patientid}`);
         setPrescriptions(response.data);
         console.log(response.data);
         

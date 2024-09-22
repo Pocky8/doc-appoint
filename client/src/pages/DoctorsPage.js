@@ -43,6 +43,7 @@ function DoctorsPage() {
   
 
   return (
+    <div className="main-div">
     <div className="doctors-page-container">
       <aside className="doctors-filter-section">
         <h2 className="doctors-filter-title">Filter</h2>
@@ -93,6 +94,7 @@ function DoctorsPage() {
             </div>
           ))}
       </main>
+    </div>
     </div>
   );
 }

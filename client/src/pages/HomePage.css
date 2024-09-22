@@ -1,16 +1,13 @@
 /* src/pages/HomePage.css */
 
 .homepage-container {
-  background-image: url('./doct.jpg'); /* Update to your local image path */
-  background-size: cover;
-  background-position: center;
   background-attachment: fixed;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Align items to the left */
   justify-content: center;
-  color: #607d8b; /* Bluish gray color */
+  background-color: #E5E7EB; /* Bluish gray color */
   text-align: left;
 }
 
@@ -19,21 +16,50 @@
   font-weight: bold;
   margin-bottom: 5px;
   color: black; 
-  margin-left: 40px;
+  margin-left: 300px;
+  margin-top: 50px;
   opacity: 0; /* Start invisible */
   transform: translateY(20px); /* Move down for effect */
   transition: opacity 1.2s ease, transform 1.2s ease; /* Increase duration to 1.2s */
 }
+.feature-card {
+  display: flex;
+  background-color: black; /* Set background to black */
+  border-radius: 15px;
+  padding: 20px;
+  margin: 10px;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Add shadow */
+  transition: transform 0.3s, opacity 1.2s ease; /* Add fade-in transition */
+  display: inline-block; /* Make cards inline */
+  color: white; /* Set text color to white for better contrast */
+  opacity: 0; /* Start invisible */
+  transform: translateY(20px); /* Move down for effect */
+}
+
+.feature-card.fade-in {
+  opacity: 1; /* Fade in */
+  transform: translateY(0); /* Move back to original position */
+}
+
+.feature-card p {
+  margin: 0;
+}
+
+.features-cards {
+ margin-left: 290px;
+}
 
 .homepage-text.fade-in {
   opacity: 1; /* Fade in */
+  text-shadow: black; ;
   transform: translateY(0); /* Move back to original position */
 }
 
 .home-under {
   color: black;
   text-align: left; /* Align the text to the left */
-  margin-left: 40px; /* Ensure margin is consistent */
+  margin-left: 300px; /* Ensure margin is consistent */
   opacity: 0; /* Start invisible */
   transform: translateY(20px); /* Move down for effect */
   transition: opacity 1.2s ease, transform 1.2s ease; /* Increase duration to 1.2s */

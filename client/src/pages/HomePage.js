@@ -1,12 +1,10 @@
 // src/pages/HomePage.js
 
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 import './HomePage.css';
 import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
-  const [doctorsData, setDoctorsData] = useState([]);
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
   const textRef = useRef(null);
@@ -14,22 +12,9 @@ function HomePage() {
   const featuredRef = useRef(null);
 
   useEffect(() => {
-    const fetchDoctors = async () => {
-      try {
-        const response = await axios.get('https://doc-appoint-server.onrender.com/api/doctors');
-        setDoctorsData(response.data.slice(0, 3)); // Fetch and display only the first 3 doctors
-      } catch (error) {
-        console.error('Error fetching doctors:', error);
-      }
-    };
-
-    fetchDoctors();
-  }, []);
-
-  useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting) { 
           setVisible(true);
           observer.unobserve(entry.target);
         }
@@ -59,9 +44,12 @@ function HomePage() {
     };
   }, []);
 
-  const handleAppointmentClick = (doctor) => {
-    navigate('/appointments', { state: { doctor } });
-  };
+  const features = [
+    "Easy to use",
+    "Shows patients in Line",
+    "Appointment and Medication Summary",
+    "Easy to use Dashboard for Doctors to handle their patients"
+  ];
 
   return (
     <div className="homepage-container">
@@ -72,19 +60,12 @@ function HomePage() {
         <p>Book appointments with top-rated doctors in your area. Get <br/>personalized care and convenient access to healthcare.</p>
       </div>
       <div className={`featured-doctors ${visible ? 'fade-in' : ''}`} ref={featuredRef}>
-        <h1>Featured Doctors</h1>
-        <p>Browse our selection of top-rated doctors and book your <br/> appointment today.</p>
+        <h1>Features</h1>
       </div>
-      <div className="doctors-carousel">
-        {doctorsData.map((doctor, index) => (
-          <div key={doctor._id} className={`doctor-card ${visible ? 'fade-in' : ''}`} style={{ transitionDelay: `${index * 200}ms` }}>
-            <img src={doctor.photo || 'https://via.placeholder.com/100'} alt={doctor.firstName + ' ' + doctor.lastName} className="doctor-photo" />
-            <div className="doctor-info">
-              <h3>{doctor.firstName} {doctor.lastName}</h3>
-              <p>{doctor.specialization}</p>
-              <p>Location: {doctor.address}</p>
-              <button className="appointment-button" onClick={() => handleAppointmentClick(doctor)}>Make an Appointment</button>
-            </div>
+      <div className="features-cards" style={{ display: 'flex', gap: '80px' }}>
+        {features.map((feature, index) => (
+          <div key={index} className={`feature-card ${visible ? 'fade-in' : ''}`} style={{ transitionDelay: `${index * 200}ms`, flex: '1' }}>
+            <p>{feature}</p>
           </div>
         ))}
       </div>

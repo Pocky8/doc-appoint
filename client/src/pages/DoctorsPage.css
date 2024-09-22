@@ -1,5 +1,8 @@
 /* DoctorsPage.css */
 
+.main-div{
+  background-color: #E5E7EB;
+}
 .doctors-page-container {
   display: flex;
   padding: 20px;

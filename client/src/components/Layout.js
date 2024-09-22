@@ -12,14 +12,13 @@ function Layout({ children }) {
     <div className="layout-container">
       <header className="layout-header">
         <div className="logo">
-          <h1><Link to="/" style={{ color: 'white' }}>Doct-Appoint</Link></h1>
+          <h1><Link to="/" style={{ color: 'black', textDecoration: 'none' }}>Doct-Appoint</Link></h1>
         </div>
         <nav className="layout-nav">
           <ul>
-            <li><Link to="/">Home</Link></li>
+            <li><Link to="/" style={{ textDecoration: 'none' }}>Home</Link></li>
             <li><Link to="/doctors">Doctors</Link></li>
             <li><Link to="/contact">Contact Us</Link></li>
-            {/* check if my role is patient if yes sho , my appointment */}
             {role === 'patient' && <li><Link to="/my_appointments">My Appointments</Link></li>}
             <li><Link to="/appointments" className="appointment-button">Make an Appointment</Link></li>
             {isAuthenticated ? (

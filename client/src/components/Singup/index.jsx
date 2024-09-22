@@ -81,6 +81,8 @@ const SignUp = () => {
               value={data.firstName}
               required
               className={styles.input}
+              pattern="^[A-Za-z]+$"
+              title="First name should contain only letters."
             />
             <input
               type="text"
@@ -90,6 +92,8 @@ const SignUp = () => {
               value={data.lastName}
               required
               className={styles.input}
+              pattern="^[A-Za-z]+$"
+              title="Last name should contain only letters."
             />
             <input
               type="email"
@@ -99,6 +103,8 @@ const SignUp = () => {
               value={data.email}
               required
               className={styles.input}
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+              title="Please enter a valid email address."
             />
             <input
               type="password"
@@ -128,6 +134,8 @@ const SignUp = () => {
                   value={doctorData.phoneNumber}
                   required
                   className={styles.input}
+                  pattern="^\d{10}$"
+                  title="Phone number should be 10 digits."
                 />
                 <input
                   type="text"

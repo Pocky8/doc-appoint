@@ -201,12 +201,6 @@ const DoctorDashboard = () => {
               <p>Number of Patients in Line: {availability.patientsInLine}</p>
             </div>
           </div>
-          <div>
-            <label>
-              Prescription update
-            </label>
-
-          </div>
         </div>
       )}
     </div>
